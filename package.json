@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "description": "API for educational project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alex Olshansky",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saNder2411/AnLarichev_API_Express.git"
+  },
+  "bugs": {
+    "url": "https://github.com/saNder2411/AnLarichev_API_Express/issues"
+  },
+  "homepage": "https://github.com/saNder2411/AnLarichev_API_Express#readme"
 }
