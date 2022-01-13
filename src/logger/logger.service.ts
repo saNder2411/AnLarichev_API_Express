@@ -1,7 +1,5 @@
 import { Logger } from 'tslog'
 
-// type MethodNames = 'info' | 'error' | 'warn'
-
 export class LoggerService {
   private logger: Logger
 

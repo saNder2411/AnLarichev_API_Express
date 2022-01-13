@@ -1,29 +1,34 @@
 import express, { Express, Router } from 'express'
 import { Server } from 'http'
-// Instruments
+// Types
 import { LoggerService } from './logger/logger.service'
-import { userRouter } from './users/users'
+import { UserController } from './users/users.controller'
+import { ExceptionFilter } from './errors/exception.filter'
 
 export class App {
   app: Express
   server: Server
-  port: number
-  logger: LoggerService
 
-  constructor(logger: LoggerService) {
+  constructor(
+    public port: number,
+    public logger: LoggerService,
+    public userController: UserController,
+    public exceptionFilter: ExceptionFilter
+  ) {
     this.app = express()
-
-    this.port = 8000
-
-    this.logger = logger
   }
 
   useRoutes() {
-    this.app.use('/users', userRouter)
+    this.app.use('/users', this.userController.router)
+  }
+
+  useExceptionFilters() {
+    this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter))
   }
 
   async init() {
     this.useRoutes()
+    this.useExceptionFilters()
 
     this.server = this.app.listen(this.port, () => {
       this.logger.log(`Server run on: http://localhost:${this.port}`)

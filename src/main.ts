@@ -1,8 +1,11 @@
 import { App } from './app'
 import { LoggerService } from './logger/logger.service'
+import { UserController } from './users/users.controller'
+import { ExceptionFilter } from './errors/exception.filter'
 
 const bootstrap = async () => {
-  const app = new App(new LoggerService())
+  const logger = new LoggerService()
+  const app = new App(8000, logger, new UserController(logger), new ExceptionFilter(logger))
 
   await app.init()
 }
