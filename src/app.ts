@@ -11,32 +11,32 @@ import { ExceptionFilter } from './errors/exception.filter'
 
 @injectable()
 export class App {
-  app: Express
-  server: Server
+	app: Express
+	server: Server
 
-  constructor(
-    @inject(TYPES.AppPort) private port: number,
-    @inject(TYPES.ILogger) private logger: ILogger,
-    @inject(TYPES.IUserController) private userController: UserController,
-    @inject(TYPES.IExceptionFilter) private exceptionFilter: ExceptionFilter
-  ) {
-    this.app = express()
-  }
+	constructor(
+		@inject(TYPES.AppPort) private port: number,
+		@inject(TYPES.ILogger) private logger: ILogger,
+		@inject(TYPES.IUserController) private userController: UserController,
+		@inject(TYPES.IExceptionFilter) private exceptionFilter: ExceptionFilter,
+	) {
+		this.app = express()
+	}
 
-  useRoutes() {
-    this.app.use('/users', this.userController.router)
-  }
+	useRoutes() {
+		this.app.use('/users', this.userController.router)
+	}
 
-  useExceptionFilters() {
-    this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter))
-  }
+	useExceptionFilters() {
+		this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter))
+	}
 
-  async init() {
-    this.useRoutes()
-    this.useExceptionFilters()
+	async init() {
+		this.useRoutes()
+		this.useExceptionFilters()
 
-    this.server = this.app.listen(this.port, () => {
-      this.logger.log(`Server run on: http://localhost:${this.port}`)
-    })
-  }
+		this.server = this.app.listen(this.port, () => {
+			this.logger.log(`Server run on: http://localhost:${this.port}`)
+		})
+	}
 }

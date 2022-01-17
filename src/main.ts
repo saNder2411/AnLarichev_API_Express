@@ -14,21 +14,21 @@ import { ILogger } from './logger/logger.interface'
 // await app.init()
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-  bind<ILogger>(TYPES.ILogger).to(LoggerService)
-  bind<IUserController>(TYPES.IUserController).to(UserController)
-  bind<IExceptionFilter>(TYPES.IExceptionFilter).to(ExceptionFilter)
-  bind<App>(TYPES.App).to(App)
-  bind<number>(TYPES.AppPort).toConstantValue(8000)
+	bind<ILogger>(TYPES.ILogger).to(LoggerService)
+	bind<IUserController>(TYPES.IUserController).to(UserController)
+	bind<IExceptionFilter>(TYPES.IExceptionFilter).to(ExceptionFilter)
+	bind<App>(TYPES.App).to(App)
+	bind<number>(TYPES.AppPort).toConstantValue(8000)
 })
 
 const bootstrap = () => {
-  const appContainer = new Container()
-  appContainer.load(appBindings)
+	const appContainer = new Container()
+	appContainer.load(appBindings)
 
-  const app = appContainer.get<App>(TYPES.App)
-  app.init()
+	const app = appContainer.get<App>(TYPES.App)
+	app.init()
 
-  return { app, appContainer }
+	return { app, appContainer }
 }
 
 export const { app, appContainer } = bootstrap()
