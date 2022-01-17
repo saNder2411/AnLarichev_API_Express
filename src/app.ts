@@ -1,6 +1,7 @@
 import express, { Express } from 'express'
 import { Server } from 'http'
 import { injectable, inject } from 'inversify'
+import { json } from 'body-parser'
 import 'reflect-metadata'
 
 import { TYPES } from './types'
@@ -23,6 +24,10 @@ export class App {
 		this.app = express()
 	}
 
+	useMiddleware() {
+		this.app.use(json())
+	}
+
 	useRoutes() {
 		this.app.use('/users', this.userController.router)
 	}
@@ -32,6 +37,7 @@ export class App {
 	}
 
 	async init() {
+		this.useMiddleware()
 		this.useRoutes()
 		this.useExceptionFilters()
 
