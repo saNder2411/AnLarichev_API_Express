@@ -8,6 +8,8 @@ import { ExceptionFilter } from './errors/exception.filter'
 import { IExceptionFilter } from './errors/exception.filter.interface'
 import { TYPES } from './types'
 import { ILogger } from './logger/logger.interface'
+import { IUserService } from './users/users.service.interface'
+import { UserService } from './users/users.service'
 
 // const logger = new LoggerService()
 // const app = new App(logger, new UserController(logger), new ExceptionFilter(logger))
@@ -16,6 +18,7 @@ import { ILogger } from './logger/logger.interface'
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<ILogger>(TYPES.ILogger).to(LoggerService)
 	bind<IUserController>(TYPES.IUserController).to(UserController)
+	bind<IUserService>(TYPES.IUserService).to(UserService)
 	bind<IExceptionFilter>(TYPES.IExceptionFilter).to(ExceptionFilter)
 	bind<App>(TYPES.App).to(App)
 	bind<number>(TYPES.AppPort).toConstantValue(8000)

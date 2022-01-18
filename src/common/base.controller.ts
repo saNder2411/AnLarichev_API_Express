@@ -37,9 +37,13 @@ export abstract class BaseController {
 		routes.forEach((r) => {
 			this.logger.log(`[${r.methodKey}] ${r.path}`)
 
-			const bindHandler = r.callback.bind(this)
+			const middleware = r.middlewares?.map((m) => m.execute.bind(m))
 
-			this.router[r.methodKey](r.path, bindHandler)
+			const handler = r.callback.bind(this)
+
+			const pipeline = middleware ? [...middleware, handler] : handler
+
+			this.router[r.methodKey](r.path, pipeline)
 		})
 	}
 }

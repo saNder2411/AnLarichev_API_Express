@@ -47,7 +47,7 @@ function Param(target: any, propName: string, index: number) {
 
 @Logger()
 @Component(1)
-export class User {
+export class UserTest {
 	@Prop
 	id: number
 
@@ -58,5 +58,5 @@ export class User {
 	}
 }
 
-console.log(new User().id)
-console.log(new User().updateId(2))
+console.log(new UserTest().id)
+console.log(new UserTest().updateId(2))

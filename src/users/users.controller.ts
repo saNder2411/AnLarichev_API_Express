@@ -11,10 +11,15 @@ import { Request, Response, NextFunction } from 'express'
 import { ILogger } from '../logger/logger.interface'
 import { UserRegisterDto } from './dto/user-register.dto'
 import { UserLoginDto } from './dto/user-login.dto'
+import { User } from './user.entity'
+import { IUserService } from './users.service.interface'
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
-	constructor(@inject(TYPES.ILogger) private loggerService: ILogger) {
+	constructor(
+		@inject(TYPES.ILogger) private loggerService: ILogger,
+		@inject(TYPES.IUserService) private userService: IUserService,
+	) {
 		super(loggerService)
 		this.bindRoutes([
 			{ path: '/register', methodKey: 'post', callback: this.register },
@@ -29,8 +34,11 @@ export class UserController extends BaseController implements IUserController {
 		next(new HttpError(401, 'Authorization Error!', 'login'))
 	}
 
-	register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction) {
-		console.log(req.body)
-		this.ok(res, 'register')
+	async register({ body }: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction) {
+		const result = await this.userService.create(body)
+
+		if (!result) return next(new HttpError(422, 'This user is already exists!'))
+
+		this.ok(res, result)
 	}
 }
