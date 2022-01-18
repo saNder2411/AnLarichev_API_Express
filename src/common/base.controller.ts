@@ -10,11 +10,9 @@ export { Router } from 'express'
 
 @injectable()
 export abstract class BaseController {
-	readonly _router: Router
+	readonly _router: Router = Router()
 
-	constructor(private logger: ILogger) {
-		this._router = Router()
-	}
+	constructor(private logger: ILogger) {}
 
 	get router() {
 		return this._router
