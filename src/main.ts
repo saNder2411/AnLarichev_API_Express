@@ -10,18 +10,23 @@ import { TYPES } from './types'
 import { ILogger } from './logger/logger.interface'
 import { IUserService } from './users/users.service.interface'
 import { UserService } from './users/users.service'
+import { IConfigService } from './config/config.service.interface'
+import { ConfigService } from './config/config.service'
+import { IPrismaService } from './database/prisma.service.interface'
+import { PrismaService } from './database/prisma.service'
 
 // const logger = new LoggerService()
 // const app = new App(logger, new UserController(logger), new ExceptionFilter(logger))
 // await app.init()
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-	bind<ILogger>(TYPES.ILogger).to(LoggerService)
+	bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope()
 	bind<IUserController>(TYPES.IUserController).to(UserController)
 	bind<IUserService>(TYPES.IUserService).to(UserService)
 	bind<IExceptionFilter>(TYPES.IExceptionFilter).to(ExceptionFilter)
 	bind<App>(TYPES.App).to(App)
-	bind<number>(TYPES.AppPort).toConstantValue(8000)
+	bind<IConfigService>(TYPES.IConfigService).to(ConfigService).inSingletonScope()
+	bind<IPrismaService>(TYPES.IPrismaService).to(PrismaService).inSingletonScope()
 })
 
 const bootstrap = () => {

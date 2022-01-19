@@ -104,3 +104,6 @@ dist
 .tern-port
 
 /.clinic
+
+/prisma/dev.db
+/prisma/dev.db-journal
