@@ -35,4 +35,8 @@ export class UserService implements IUserService {
 
 		return userBus.comparePassword(password)
 	}
+
+	async getUser(email: string) {
+		return this.usersRepository.find(email)
+	}
 }

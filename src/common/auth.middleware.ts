@@ -12,11 +12,12 @@ export class AuthMiddleware implements IMiddleware {
 				if (err) return next()
 
 				if (payload) {
-					req.user = typeof payload === 'string' ? payload : payload.email
+					req.userEmail = typeof payload === 'string' ? payload : payload.email
+					next()
 				}
 			})
+		} else {
+			next()
 		}
-
-		next()
 	}
 }

@@ -14,6 +14,7 @@ import { UserRegisterDto } from './dto/user-register.dto'
 import { IUserController } from './users.controller.interface'
 import { IUserService } from './users.service.interface'
 import { IConfigService } from '../config/config.service.interface'
+import { AuthGuardMiddleware } from '../common/auth.guard.middleware'
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -40,6 +41,7 @@ export class UserController extends BaseController implements IUserController {
 				path: '/info',
 				methodKey: 'get',
 				callback: this.info,
+				middlewares: [new AuthGuardMiddleware()],
 			},
 		])
 	}
@@ -72,7 +74,8 @@ export class UserController extends BaseController implements IUserController {
 		})
 	}
 
-	async info({ user }: Request, res: Response, next: NextFunction) {
-		this.ok(res, { email: user })
+	async info({ userEmail }: Request, res: Response, next: NextFunction) {
+		const user = await this.userService.getUser(userEmail ?? '')
+		this.ok(res, { email: user?.email, id: user?.id })
 	}
 }
