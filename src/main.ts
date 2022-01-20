@@ -14,6 +14,8 @@ import { IConfigService } from './config/config.service.interface'
 import { ConfigService } from './config/config.service'
 import { IPrismaService } from './database/prisma.service.interface'
 import { PrismaService } from './database/prisma.service'
+import { IUsersRepository } from './users/users.repository.interface'
+import { UsersRepository } from './users/users.repository'
 
 // const logger = new LoggerService()
 // const app = new App(logger, new UserController(logger), new ExceptionFilter(logger))
@@ -27,6 +29,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<App>(TYPES.App).to(App)
 	bind<IConfigService>(TYPES.IConfigService).to(ConfigService).inSingletonScope()
 	bind<IPrismaService>(TYPES.IPrismaService).to(PrismaService).inSingletonScope()
+	bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepository).inSingletonScope()
 })
 
 const bootstrap = () => {
