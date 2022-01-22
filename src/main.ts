@@ -32,14 +32,14 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepository).inSingletonScope()
 })
 
-const bootstrap = () => {
+const bootstrap = async () => {
 	const appContainer = new Container()
 	appContainer.load(appBindings)
 
 	const app = appContainer.get<App>(TYPES.App)
-	app.init()
+	await app.init()
 
 	return { app, appContainer }
 }
 
-export const { app, appContainer } = bootstrap()
+export const boot = bootstrap()

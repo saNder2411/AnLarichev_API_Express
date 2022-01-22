@@ -54,4 +54,8 @@ export class App {
 			this.logger.log(`Server run on: http://localhost:${this.configService.get('PORT')}`)
 		})
 	}
+
+	close() {
+		this.server.close()
+	}
 }
