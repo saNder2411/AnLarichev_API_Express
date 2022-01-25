@@ -1,17 +1,17 @@
-import express, { Express } from 'express'
-import { Server } from 'http'
-import { injectable, inject } from 'inversify'
-import { json } from 'body-parser'
 import 'reflect-metadata'
 
-import { TYPES } from './types'
-// Types
-import { ILogger } from './logger/logger.interface'
-import { IConfigService } from './config/config.service.interface'
-import { IUserController } from './users/users.controller.interface'
-import { IExceptionFilter } from './errors/exception.filter.interface'
-import { IPrismaService } from './database/prisma.service.interface'
+import { json } from 'body-parser'
+import express, { Express } from 'express'
+import { Server } from 'http'
+import { inject, injectable } from 'inversify'
+
 import { AuthMiddleware } from './common/auth.middleware'
+import { IConfigService } from './config/config.service.interface'
+import { IPrismaService } from './database/prisma.service.interface'
+import { IExceptionFilter } from './errors/exception.filter.interface'
+import { ILogger } from './logger/logger.interface'
+import { TYPES } from './types'
+import { IUserController } from './users/users.controller.interface'
 
 @injectable()
 export class App {
