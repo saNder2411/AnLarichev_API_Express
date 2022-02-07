@@ -1,4 +1,7 @@
+import 'reflect-metadata'
+
 import { inject, injectable } from 'inversify'
+
 import { IPrismaService } from '../database/prisma.service.interface'
 import { TYPES } from '../types'
 import { User } from './user.entity'

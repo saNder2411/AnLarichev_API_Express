@@ -1,10 +1,10 @@
-import { inject, injectable } from 'inversify'
 import 'reflect-metadata'
 
-import { TYPES } from './../types'
-// Types
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import { inject, injectable } from 'inversify'
+
 import { ILogger } from '../logger/logger.interface'
+import { TYPES } from './../types'
 import { IExceptionFilter } from './exception.filter.interface'
 import { HttpError } from './http.error.class'
 
